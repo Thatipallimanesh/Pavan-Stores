@@ -1,0 +1,282 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+- Home
+{% endblock title %}
+{% block cart %}
+<li class="nav-item">
+  <button type="button" class="nav-link bg-secondary text-white" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </svg>Cart&lpar;<span id="cart">0</span>&rpar;
+  </button>
+</li>
+{% endblock cart %}
+{% block content %}
+<!--
+{% for i in user_cart %}
+<input type="hidden" id="cartfromDB" value="{{i.cart}}">
+{% endfor %}
+-->
+    <div class="container">
+      <h3 class="my-3 text-center text-success bg-light">Foodgrains</h3>
+    </div>
+    <div class="container">
+      <div class="row">
+        {% for f in foodgrains %}
+        <div class="col-md-3 mb-4 card">
+          <img src="/media/{{f.img}}" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title" id="namefoodgrain-{{f.id}}">{{f.name}}</h5>
+            <p class="card-text" id="descfoodgrain-{{f.id}}">{{f.desc}}</p>
+            <h6 class="card-title">Price:<span id="pricefoodgrain-{{f.id}}">{{f.price}}</span></h6>
+            {% if user.is_authenticated %}
+            <span id="divfoodgrain-{{f.id}}" class="divpr">
+              <button id="foodgrain-{{f.id}}" class="btn btn-dark cart btn-sm mt-0">AddToCart</button>
+            </span>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="container">
+      <h3 class="my-3 text-center text-success bg-light">Flours</h3>
+    </div>
+    <div class="container">
+      <div class="row">
+        {% for f in flours %}
+        <div class="col-md-3 mb-4 card">
+          <img src="/media/{{f.img}}" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title" id="nameflour-{{f.id}}">{{f.name}}</h5>
+            <p class="card-text" id="descflour-{{f.id}}">{{f.desc}}</p>
+            <h6 class="card-title">Price:<span id="priceflour-{{f.id}}">{{f.price}}</span></h6>
+            {% if user.is_authenticated %}
+            <span id="divflour-{{f.id}}" class="divpr">
+              <button id="flour-{{f.id}}" class="btn btn-dark cart btn-sm mt-0">AddToCart</button>
+            </span>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="container">
+      <h3 class="my-3 text-center text-success bg-light">Oils</h3>
+    </div>
+    <div class="container">
+      <div class="row">
+        {% for f in oils %}
+        <div class="col-md-3 mb-4 card">
+          <img src="/media/{{f.img}}" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title" id="nameoil-{{f.id}}">{{f.name}}</h5>
+            <p class="card-text" id="descoil-{{f.id}}">{{f.desc}}</p>
+            <h6 class="card-title">Price:<span id="priceoil-{{f.id}}">{{f.price}}</span></h6>
+            {% if user.is_authenticated %}
+            <span id="divoil-{{f.id}}" class="divpr">
+              <button id="oil-{{f.id}}" class="btn btn-dark cart btn-sm mt-0">AddToCart</button>
+            </span>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="container">
+      <h3 class="my-3 text-center text-success bg-light">Spices</h3>
+    </div>
+    <div class="container">
+      <div class="row">
+        {% for f in spices %}
+        <div class="col-md-3 mb-4 card">
+          <img src="/media/{{f.img}}" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title" id="namespices-{{f.id}}">{{f.name}}</h5>
+            <p class="card-text" id="descspices-{{f.id}}">{{f.desc}}</p>
+            <h6 class="card-title">Price:<span id="pricespices-{{f.id}}">{{f.price}}</span></h6>
+            {% if user.is_authenticated %}
+            <span id="divspices-{{f.id}}" class="divpr">
+              <button id="spices-{{f.id}}" class="btn btn-dark cart btn-sm mt-0">AddToCart</button>
+            </span>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    <div class="container">
+      <h3 class="my-3 text-center text-success bg-light">Dryfruits</h3>
+    </div>
+    <div class="container">
+      <div class="row">
+        {% for f in dryfruits %}
+        <div class="col-md-3 mb-4 card">
+          <img src="/media/{{f.img}}" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title" id="namedryfruit-{{f.id}}">{{f.name}}</h5>
+            <p class="card-text" id="descdryfruit-{{f.id}}">{{f.desc}}</p>
+            <h6 class="card-title">Price:<span id="pricedryfruit-{{f.id}}">{{f.price}}</span></h6>
+            {% if user.is_authenticated %}
+            <span id="divdryfruit-{{f.id}}" class="divpr">
+              <button id="dryfruit-{{f.id}}" class="btn btn-dark cart btn-sm mt-0">AddToCart</button>
+            </span>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    <div class="container">
+      <h3 class="my-3 text-center text-success bg-light">Masalas</h3>
+    </div>
+    <div class="container">
+      <div class="row">
+        {% for f in masalas %}
+        <div class="col-md-3 mb-4 card">
+          <img src="/media/{{f.img}}" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title" id="namemasala-{{f.id}}">{{f.name}}</h5>
+            <p class="card-text" id="descmasala-{{f.id}}">{{f.desc}}</p>
+            <h6 class="card-title">Price:<span id="pricemasala-{{f.id}}">{{f.price}}</span></h6>
+            {% if user.is_authenticated %}
+            <span id="divmasala-{{f.id}}" class="divpr">
+              <button id="masala-{{f.id}}" class="btn btn-dark cart btn-sm mt-0">AddToCart</button>
+            </span>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+      
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
+
+<!--  CART  -->
+
+<script>
+  if (localStorage.getItem('cart') == null) {
+    var cart = {};
+    /*
+    var cookie = document.cookie;
+    console.log(cookie);
+    var c = cookie.split(";")[0];
+    var items_json = c.split("=")[1];
+    console.log(items_json);
+    var cart = JSON.parse(items_json);
+    console.log(cart);
+    */
+  } 
+  else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    updateCart(cart);
+  }
+
+  $('.divpr').on('click', 'button.cart', function() {
+    var idstr = this.id.toString();
+    if (cart[idstr] != undefined) {
+      cart[idstr][0] = cart[idstr][0] + 1;
+    }
+    else {
+      qty = 1;
+      name = document.getElementById('name' + idstr).innerHTML;
+      price = document.getElementById('price' + idstr).innerHTML;
+      desc = document.getElementById('desc' + idstr).innerHTML;
+      cart[idstr] = [qty, name, price, desc];
+    }
+    updateCart(cart);
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    var sum = 0;
+    for(item in cart){
+      sum = sum + cart[item][0];
+    }
+    document.getElementById('cart').innerHTML = sum;
+    document.getElementById("popcart").click();
+  });
+
+  $('#popcart').popover();
+
+  updatePopover(cart);
+  function updatePopover(cart) {
+    var popStr = "";
+    var popStr = popStr + "<h5> cart for your items.</h5> <div class='mx-2 my-2'>";
+    var i = 1;
+    for (var item in cart) {
+      if(cart[item][0] != 0){
+        popStr = popStr + "<b>" + i + "</b>. ";
+        popStr = popStr + document.getElementById('name' + item).innerHTML + "....." + "<b>" +cart[item][0] + "</b>"+ "Qty"  + '<br>';
+        i = i + 1;
+      }
+    }
+
+    popStr = popStr + "</div> <a href='/checkout'><button class='btn btn-success' id='checkout'>Checkout</button></a>  <button class='btn btn-dark' onclick='clearCart()' id='clearCart'>ClearCart</button>"
+    document.getElementById('popcart').setAttribute('data-content', popStr);
+    $('#popcart').popover('show');
+    document.getElementById("popcart").click();
+  }
+
+  function clearCart() {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    for (var item in cart) {
+      document.getElementById('div' + item).innerHTML = '<button id="' + item + '" class="btn btn-sm btn-dark cart">AddtoCard <i class="fa-solid fa-cart-shopping"></i></button>'
+    }
+    localStorage.clear();
+    cart = {};
+    updateCart(cart);
+      
+    let clear= document.getElementById("popcart").click();
+    document.getElementById("popcart").click();
+  }
+
+  function updateCart(cart) {
+    var sum = 0;
+    for (var item in cart) {
+      if(cart[item][0]!=0){
+        sum = sum + cart[item][0];
+        document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "'class='btn btn-sm btn-dark minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-sm btn-dark plus'> + </button>";
+      }
+      else{
+        document.getElementById('div' + item).innerHTML = "<button id='"+item+"' class='btn btn-dark cart btn-sm mt-0'>AddToCart<i class='fa-solid fa-cart-shopping'></i></button>"
+      }
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = sum;
+    updatePopover(cart);
+    document.getElementById("popcart").click();
+  }
+
+  $('.divpr').on("click", "button.minus", function() {
+    a = this.id.slice(5, );
+    cart[a][0] = cart[a][0] - 1;
+    cart[a][0] = Math.max(0, cart[a][0]);
+    document.getElementById('val' + a).innerHTML = cart[a][0];
+    updateCart(cart);
+  })
+
+  $('.divpr').on("click", "button.plus", function() {
+    a = this.id.slice(4, );
+    cart[a][0] = cart[a][0] + 1;
+    document.getElementById('val' + a).innerHTML = cart[a][0];
+    updateCart(cart);
+  })
+/*
+  $('#logout').on("click", function(){
+    document.cookie = `cart=${JSON.stringify(cart)}`;
+    localStorage.clear();
+  })
+*/
+</script>
+
+
+{% endblock content %}

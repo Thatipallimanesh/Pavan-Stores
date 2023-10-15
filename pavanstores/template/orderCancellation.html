@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}
+{% for o in order %}
+- Cancel OrderId {{o.id}}
+{% endfor %}
+{% endblock title %}
+{% block content %}
+
+<div class="container my-5 min-vh-100 text-center">
+    {% for o in order %}
+        <h3 class="text-center">Are you sure? You want to cancel the order id: {{o.id}}</h3>
+        <form method="POST" action="/confirmCancellation">
+            {% csrf_token %}
+            <input type="hidden" id="order_id" name="order_id" value="{{o.id}}">
+            <button type="submit" class="btn btn-danger" id="yes" name="answer" value="yes">Yes</button>
+            <button type="submit" class="btn btn-primary" id="no" name="answer" value="no">No</button>
+        </form>
+    {% endfor %}
+</div>
+
+{% endblock content %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}
+- My Orders
+{% endblock title%}
+
+{% block content %}
+{% for m in messages %}
+<div class="alert alert-success container text-center" role="alert">
+    {{m}}
+</div>  
+{% endfor %}
+<div class="container col-12 col-lg-10 col-xl-9">
+    <h1 class="text-center my-5">Your Recent Orders</h1>
+    {% for i in allupdates %}
+        <div class="container mb-5">
+            <h2 class="my-3">Order ID: {{i.id}}</h2>
+            <h4 class="my-3">Ordered Items:</h4>
+            {% for j in i.items_ordered %}
+                {% if j.qty > 0 %}
+                    <ul class="list-group col-12 col-lg-10 col-xl-9" id="items">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                            <h6 class="my-0">{{j.name}} ({{j.qty}})</h6>
+                            <small class="text-muted">{{j.desc}}</small>
+                            </div>
+                            <div>
+                                <h6 class="text-muted">Rs. {{j.price}}</h6>
+                            </div>
+                        </li>
+                    </ul>
+                {% endif %}
+            {% endfor %}
+            <ul class="list-group mb-2 col-12 col-lg-10 col-xl-9">
+                <li class="list-group-item d-flex justify-content-between">
+                <span>Total</span>
+                <strong>Rs. {{i.total}}</strong>
+                </li>
+            </ul>
+            <h4 class="my-3">Order Status:</h4>
+            {% for j in i.update %}
+                <ul class="list-group col-12 col-lg-10 col-xl-9">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{j.desc}}
+                    <span class="text-muted">{{j.time}}</span>
+                    </li>
+                </ul>
+            {% endfor %}
+            {% if i.deliveryStatus == False %}
+                <form method="POST" class="my-3" action="/orderCancellation">
+                    {% csrf_token %}
+                    <input type="hidden" id="order_id" name="order_id" value="{{i.id}}">
+                    <button type="submit" class="btn btn-danger">Cancel the Order</button>
+                </form>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
